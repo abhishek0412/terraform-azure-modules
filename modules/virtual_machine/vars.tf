@@ -24,3 +24,8 @@ variable "admin_password" {
   default     = ""
   description = "VM Admin Password"
 }
+
+variable "environment" {
+  default     = ""
+  description = "CloudAcademy Environment"
+}

@@ -21,7 +21,7 @@ data "template_cloudinit_config" "webapp_config" {
 }
 
 resource "azurerm_linux_virtual_machine" "cloudacademy_vm1" {
-  name                  = "cloudacademy-vm1"
+  name                  = "${var.environment}-cloudacademy-vm1"
   location              = var.location
   resource_group_name   = var.resource_group_name
   network_interface_ids = [var.vnetwork_interface_id]
@@ -41,8 +41,8 @@ resource "azurerm_linux_virtual_machine" "cloudacademy_vm1" {
   }
 
   computer_name                   = "cloudacademy-vm1"
-  admin_username                  = "superadmin"
-  admin_password                  = "i$9gGRj4"
+  admin_username                  = var.admin_name
+  admin_password                  = var.admin_password
   disable_password_authentication = false
 
   custom_data = data.template_cloudinit_config.webapp_config.rendered
@@ -53,6 +53,6 @@ resource "azurerm_linux_virtual_machine" "cloudacademy_vm1" {
 
   tags = {
     org         = "cloudacademy"
-    environment = "prod"
+    environment = var.environment
   }
 }
