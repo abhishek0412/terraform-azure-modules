@@ -5,3 +5,7 @@ variable "resource_group_name" {
   description = "Resource group name"
 }
 
+variable "environment" {
+  default     = ""
+  description = "CloudAcademy Environment"
+}

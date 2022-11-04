@@ -1,7 +1,7 @@
 # Create virtual network
 # The resource names in the module get prefixed by module.<module-instance-name> when instantiated
 resource "azurerm_virtual_network" "ca_vnet1" {
-  name                = "ca-vnet1"
+  name                = "${var.environment}-ca-vnet1"
   address_space       = ["10.0.0.0/16"]
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -17,7 +17,7 @@ resource "azurerm_subnet" "subnet1" {
 
 # Create public IPs
 resource "azurerm_public_ip" "pip1" {
-  name                = "publicip1"
+  name                = "${var.environment}-vm-publicip1"
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Dynamic"
@@ -25,7 +25,7 @@ resource "azurerm_public_ip" "pip1" {
 
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "nsg1" {
-  name                = "allow-ssh"
+  name                = "${var.environment}-vm-nsg-allow"
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -56,12 +56,12 @@ resource "azurerm_network_security_group" "nsg1" {
 
 # Create network interface
 resource "azurerm_network_interface" "nic1" {
-  name                = "nic1"
+  name                = "${var.environment}-vm-nic1"
   location            = var.location
   resource_group_name = var.resource_group_name
 
   ip_configuration {
-    name                          = "nic1config"
+    name                          = "${var.environment}-vm-nic1config"
     subnet_id                     = azurerm_subnet.subnet1.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.pip1.id
