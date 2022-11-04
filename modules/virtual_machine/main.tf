@@ -47,10 +47,6 @@ resource "azurerm_linux_virtual_machine" "cloudacademy_vm1" {
 
   custom_data = data.template_cloudinit_config.webapp_config.rendered
 
-  boot_diagnostics {
-    storage_account_uri = var.blob_storage_url
-  }
-
   tags = {
     org         = "cloudacademy"
     environment = var.environment
