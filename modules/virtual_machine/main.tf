@@ -11,7 +11,12 @@ data "template_cloudinit_config" "webapp_config" {
     #! /bin/bash
     apt-get -y update
     apt-get -y install nginx
-    apt-get -y install jq
+    
+    cd /var/www/html
+    rm *.html
+    git clone https://github.com/cloudacademy/webgl-globe/ .
+    cp -a src/* .
+    rm -rf {.git,*.md,src,conf.d,docs,Dockerfile,index.nginx-debian.html}
 
     systemctl restart nginx
     systemctl status nginx
